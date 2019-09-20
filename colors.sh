@@ -47,28 +47,45 @@ function conda_env_name_with_color()
 function python_virtualenv_name_with_color()
 {
 	if [[ "${VIRTUAL_ENV}" != "" ]]; then
-		VIRTUAL_ENV_NAME="${VIRTUAL_ENV}"
+		VIRTUAL_ENV_NAME="$(basename ${VIRTUAL_ENV})"
 		PYTHON_VIRTUAL_ENV_COLOR_NAME="${LIGHT_BLUE}(${VIRTUAL_ENV_NAME})${RESET_COLOR}"
+	fi
+}
+
+function git_branch_with_color()
+{
+	GIT_BRANCH_NAME=""
+
+	if [[ -f /etc/bash_completion.d/git-prompt ]]; then
+		source /etc/bash_completion.d/git-prompt
+		GIT_BRANCH_NAME=$(__git_ps1) # __git_ps1 is `(branch name)`
+	fi
+
+	if [[ "${GIT_BRANCH_NAME}" != "" ]]; then
+		GIT_BRANCH_NAME_WITH_COLOR="${YELLOW}${GIT_BRANCH_NAME}${RESET_COLOR}"
 	fi
 }
 
 PROMPT_COMMAND=bash_prompt_command
 function bash_prompt_command()
 {
-	local EXIT_CODE="$?"
+	local EXIT_CODE="$?" # must be first so it will save the *last* executed command exit code.
 	PS1=""
 
-	# First show the conda environment
+	# First show the conda environment, if any
 	if [[ "${CONDA_PREFIX}" != "" ]]; then
 		conda_env_name_with_color
 		PS1+="${CONDA_ENV_NAME_WITH_COLOR}"
 	fi
 
-	# At second show python virtualenv name
+	# At second show python virtualenv name, if any
 	if [[ "${VIRTUAL_ENV}" != "" ]]; then
 		python_virtualenv_name_with_color
 		PS1+="${PYTHON_VIRTUAL_ENV_COLOR_NAME}"
 	fi
+
+	git_branch_with_color
+	PS1+="${GIT_BRANCH_NAME_WITH_COLOR}"
 
 	# add a space before the rest of the PS1
 	if [[ "${PS1}" != "" ]] ; then
