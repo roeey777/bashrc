@@ -63,6 +63,8 @@ function git_branch_with_color()
 
 	if [[ "${GIT_BRANCH_NAME}" != "" ]]; then
 		GIT_BRANCH_NAME_WITH_COLOR="${YELLOW}${GIT_BRANCH_NAME}${RESET_COLOR}"
+	else
+		GIT_BRANCH_NAME_WITH_COLOR=""
 	fi
 }
 
