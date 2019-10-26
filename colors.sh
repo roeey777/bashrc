@@ -68,7 +68,7 @@ function git_branch_with_color()
 	fi
 }
 
-PROMPT_COMMAND=bash_prompt_command
+PROMPT_COMMAND="bash_prompt_command; ${PROMPT_COMMAND}"
 function bash_prompt_command()
 {
 	local EXIT_CODE="$?" # must be first so it will save the *last* executed command exit code.

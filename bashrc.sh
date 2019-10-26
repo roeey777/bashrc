@@ -12,13 +12,6 @@ esac
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -99,16 +92,31 @@ if ! shopt -oq posix; then
 fi
 
 
+#***********************************************
 # Out-sourcing
+#***********************************************
+
+# load useful & user-specific consts.
+if [[ -f ~/.bash/consts.sh ]]; then
+	source ~/.bash/consts.sh
+fi
+
+# load general bash configurations
 if [[ -f ~/.bash/general.sh ]]; then
 	source ~/.bash/general.sh
 fi
+
+# load aliases
 if [[ -f ~/.bash/aliases.sh ]]; then
 	source ~/.bash/aliases.sh
 fi
+
+# conda setup & configurations
 if [[ -f ~/.bash/conda_setup.sh ]]; then
 	source ~/.bash/conda_setup.sh
 fi
+
+# load color configurations
 if [[ -f ~/.bash/colors.sh ]]; then
 	source ~/.bash/colors.sh
 fi
