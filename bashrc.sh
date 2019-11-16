@@ -92,8 +92,21 @@ if ! shopt -oq posix; then
 fi
 
 
+
 #***********************************************
-# Out-sourcing
+# Useful functions.
+#***********************************************
+
+function start_conda()
+{
+	# conda setup & configurations
+	if [[ -f ~/.bash/conda_setup.sh ]]; then
+		source ~/.bash/conda_setup.sh
+	fi
+}
+
+#***********************************************
+# Out-sourcing.
 #***********************************************
 
 # load useful & user-specific consts.
@@ -113,7 +126,9 @@ fi
 
 # conda setup & configurations
 if [[ -f ~/.bash/conda_setup.sh ]]; then
-	source ~/.bash/conda_setup.sh
+	if [[ -n "${BASHRC_CONDA_ON_START}" ]] && [ "${BASHRC_CONDA_ON_START}" == "yes" ]; then
+		start_conda
+	fi
 fi
 
 # load color configurations
