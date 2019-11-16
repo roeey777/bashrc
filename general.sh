@@ -13,8 +13,7 @@ shopt -s histappend
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # bind Up/Down arrows for searching history ONLY in interactive mode.
-if [[ $- == *i* ]]
-then
+if [[ $- == *i* ]]; then
     bind '"\e[A": history-search-backward'
     bind '"\e[B": history-search-forward'
 fi
