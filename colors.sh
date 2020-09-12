@@ -22,6 +22,9 @@ WHITE="\[\e[1;37m\]"
 # Colors special characters
 RESET_COLOR="\[\e[0m\]" 	# end color modifications.
 
+# when using Kconfig menuconfig the theme will be dark
+export MENUCONFIG_COLOR=blackbg
+
 function paint()
 {
 	forground_color=$1
